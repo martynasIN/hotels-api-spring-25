@@ -26,7 +26,7 @@ public class Hotel {
     private Double roomPrice;
 
     @Column(name="price_discount")
-    private Double priceDoscount;
+    private Double priceDiscount;
 
     @Column(name="comfort")
     private Integer comfort;
@@ -48,13 +48,13 @@ public class Hotel {
 
     public Hotel(){}
 
-    public Hotel(Long id, String name, String address, Double rankingAverage, Double roomPrice, Double priceDoscount, Integer comfort, String description, String summary, String imageCover, LocalDateTime createdAt, LocalDateTime updatedAt) {
+    public Hotel(Long id, String name, String address, Double rankingAverage, Double roomPrice, Double priceDiscount, Integer comfort, String description, String summary, String imageCover, LocalDateTime createdAt, LocalDateTime updatedAt) {
         this.id = id;
         this.name = name;
         this.address = address;
         this.rankingAverage = rankingAverage;
         this.roomPrice = roomPrice;
-        this.priceDoscount = priceDoscount;
+        this.priceDiscount = priceDiscount;
         this.comfort = comfort;
         this.description = description;
         this.summary = summary;
@@ -103,12 +103,12 @@ public class Hotel {
         this.rankingAverage = rankingAverage;
     }
 
-    public Double getPriceDoscount() {
-        return priceDoscount;
+    public Double getPriceDiscount() {
+        return priceDiscount;
     }
 
-    public void setPriceDoscount(Double priceDoscount) {
-        this.priceDoscount = priceDoscount;
+    public void setPriceDiscount(Double priceDiscount) {
+        this.priceDiscount = priceDiscount;
     }
 
     public String getSummary() {
@@ -167,7 +167,7 @@ public class Hotel {
                 ", address='" + address + '\'' +
                 ", rankingAverage=" + rankingAverage +
                 ", roomPrice=" + roomPrice +
-                ", priceDoscount=" + priceDoscount +
+                ", priceDiscount=" + priceDiscount +
                 ", comfort=" + comfort +
                 ", summary='" + summary + '\'' +
                 ", description='" + description + '\'' +

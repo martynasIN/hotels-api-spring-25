@@ -11,9 +11,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
-import tools.jackson.databind.ObjectMapper;
-import tools.jackson.databind.node.ObjectNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -86,6 +87,7 @@ public class HotelController {
         hotelNode.setAll(patchNode);
 
         Hotel patchedHotel = objectMapper.convertValue(hotelNode, Hotel.class);
+        patchedHotel.setUpdatedAt(LocalDateTime.now());
 
         Hotel saved = hotelService.save(patchedHotel);
 

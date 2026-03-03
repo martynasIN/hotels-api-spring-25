@@ -13,7 +13,7 @@ public class HotelMapper {
         hotel.setAddress(dto.getAddress());
         hotel.setRankingAverage(dto.getRankingAverage());
         hotel.setRoomPrice(dto.getRoomPrice());
-        hotel.setPriceDoscount(dto.getPriceDiscount());
+        hotel.setPriceDiscount(dto.getPriceDiscount());
         hotel.setComfort(dto.getComfort());
         hotel.setSummary(dto.getSummary());
         hotel.setDescription(dto.getDescription());
@@ -32,7 +32,7 @@ public class HotelMapper {
         dto.setAddress(entity.getAddress());
         dto.setRankingAverage(entity.getRankingAverage());
         dto.setRoomPrice(entity.getRoomPrice());
-        dto.setPriceDiscount(entity.getPriceDoscount());
+        dto.setPriceDiscount(entity.getPriceDiscount());
         dto.setComfort(entity.getComfort());
         dto.setSummary(entity.getSummary());
         dto.setDescription(entity.getDescription());

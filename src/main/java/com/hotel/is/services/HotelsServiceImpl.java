@@ -2,6 +2,7 @@ package com.hotel.is.services;
 
 import com.hotel.is.dao.HotelRepository;
 import com.hotel.is.entity.Hotel;
+import com.hotel.is.exception.HotelNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -31,7 +32,7 @@ public class HotelsServiceImpl implements HotelService{
         if(result.isPresent()){
             hotel = result.get();
         }else{
-            throw new RuntimeException("Did not find hotel id - " + id);
+            throw new HotelNotFoundException("Did not find hotel id - " + id);
         }
 
         return hotel;

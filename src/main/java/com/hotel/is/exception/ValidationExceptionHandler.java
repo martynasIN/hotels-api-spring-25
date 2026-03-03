@@ -29,10 +29,20 @@ public class ValidationExceptionHandler {
         return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
     }
 
+    @ExceptionHandler(HotelNotFoundException.class)
+    public ResponseEntity<Map<String, Object>> handleHotelNotFound(HotelNotFoundException ex){
+        Map<String, Object> response = new HashMap<>();
+        response.put("status", "fail");
+        response.put("timestamp", LocalDateTime.now());
+        response.put("message", ex.getMessage());
+
+        return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
+    }
+
     @ExceptionHandler(RuntimeException.class)
     public ResponseEntity<Map<String, Object>> handleRuntimeException(RuntimeException ex){
         Map<String, Object> response = new HashMap<>();
-        response.put("status", "failed");
+        response.put("status", "fail");
         response.put("timestamp", LocalDateTime.now());
         response.put("message", ex.getMessage());
 
