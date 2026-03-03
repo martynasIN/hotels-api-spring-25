@@ -1,6 +1,5 @@
 package com.hotel.is.security.jwt;
 
-import ch.qos.logback.core.util.StringUtil;
 import com.hotel.is.services.UserDetailsServiceImpl;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -49,7 +48,7 @@ public class AuthTokenFilter extends OncePerRequestFilter {
                 SecurityContextHolder.getContext().setAuthentication(authentication);
             }
         }catch(Exception e){
-            logger.error("Cannot set user autentification: {}", e);
+            logger.error("Cannot set user authentication: {}", e);
         }
 
         filterChain.doFilter(request,response);

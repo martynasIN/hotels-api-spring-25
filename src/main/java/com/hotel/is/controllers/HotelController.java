@@ -1,6 +1,5 @@
 package com.hotel.is.controllers;
 
-import com.hotel.is.dao.HotelRepository;
 import com.hotel.is.dto.HotelCreateDTO;
 import com.hotel.is.dto.HotelResponseDTO;
 import com.hotel.is.entity.Hotel;
@@ -23,17 +22,14 @@ import java.util.stream.Collectors;
 @RequestMapping("/api/v1/hotels")
 public class HotelController {
     private final HotelService hotelService;
-    private final HotelRepository hotelRepository;
     private ObjectMapper objectMapper;
 
     @Autowired
     public HotelController(
             HotelService hotelService,
-            HotelRepository hotelRepository,
             ObjectMapper objectMapper
     ){
         this.hotelService = hotelService;
-        this.hotelRepository = hotelRepository;
         this.objectMapper = objectMapper;
     }
 
@@ -53,7 +49,7 @@ public class HotelController {
     }
 
     @GetMapping("/{hotelId}")
-    public ResponseEntity<HotelResponseDTO> getHotel(@PathVariable int hotelId){
+    public ResponseEntity<HotelResponseDTO> getHotel(@PathVariable long hotelId){
         Hotel hotel = hotelService.findById(hotelId);
         if(hotel == null){
             return ResponseEntity.notFound().build();
@@ -69,7 +65,7 @@ public class HotelController {
     }
 
     @PatchMapping("/{hotelId}")
-    public ResponseEntity<HotelResponseDTO> patchHotel(@PathVariable int hotelId,
+    public ResponseEntity<HotelResponseDTO> patchHotel(@PathVariable long hotelId,
                                                        @RequestBody Map<String, Object> patchData){
         Hotel tempHotel = hotelService.findById(hotelId);
 
@@ -95,7 +91,7 @@ public class HotelController {
     }
 
     @DeleteMapping("/{hotelId}")
-    public ResponseEntity<String> deleteHotel(@PathVariable int hotelId){
+    public ResponseEntity<String> deleteHotel(@PathVariable long hotelId){
         Hotel tempHotel = hotelService.findById(hotelId);
 
         if(tempHotel == null){

@@ -22,10 +22,10 @@ public class JwtUtils {
   private String jwtSecret;
 
   @Value("${jwt.expiration}")
-  private int jwtExpiration;
+  private long jwtExpiration;
 
-  public String generateJwtToken(Authentication authentification){
-      UserDetailsImpl userPrincipal = (UserDetailsImpl) authentification.getPrincipal();
+  public String generateJwtToken(Authentication authentication){
+      UserDetailsImpl userPrincipal = (UserDetailsImpl) authentication.getPrincipal();
 
       return Jwts.builder()
               .setSubject((userPrincipal.getUsername()))

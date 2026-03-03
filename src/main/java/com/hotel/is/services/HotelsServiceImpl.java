@@ -24,7 +24,7 @@ public class HotelsServiceImpl implements HotelService{
     }
 
     @Override
-    public Hotel findById(int id){
+    public Hotel findById(long id){
         Optional<Hotel> result = hotelRepository.findById(id);
 
         Hotel hotel = null;
@@ -44,7 +44,7 @@ public class HotelsServiceImpl implements HotelService{
     }
 
     @Override
-    public void deleteById(int id){
+    public void deleteById(long id){
         hotelRepository.deleteById(id);
     }
 
