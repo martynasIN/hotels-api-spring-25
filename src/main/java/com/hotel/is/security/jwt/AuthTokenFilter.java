@@ -29,6 +29,15 @@ public class AuthTokenFilter extends OncePerRequestFilter {
 
     private static final Logger logger = LoggerFactory.getLogger(AuthTokenFilter.class);
 
+    /**
+     * Intercepts each request, extracts and validates the JWT from the Authorization header,
+     * and sets the authenticated principal in the {@link SecurityContextHolder}.
+     * Continues the filter chain regardless of whether a valid token was present.
+     *
+     * @param request     the incoming HTTP request
+     * @param response    the HTTP response
+     * @param filterChain the remaining filter chain
+     */
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
         throws ServletException, IOException{
@@ -54,6 +63,12 @@ public class AuthTokenFilter extends OncePerRequestFilter {
         filterChain.doFilter(request,response);
     }
 
+    /**
+     * Extracts the JWT string from the {@code Authorization: Bearer <token>} header.
+     *
+     * @param request the incoming HTTP request
+     * @return the raw JWT string, or {@code null} if the header is absent or malformed
+     */
     private String parseJwt(HttpServletRequest request){
         String headerAuth = request.getHeader("Authorization");
 

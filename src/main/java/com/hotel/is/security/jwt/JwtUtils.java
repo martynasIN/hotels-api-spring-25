@@ -24,6 +24,12 @@ public class JwtUtils {
   @Value("${jwt.expiration}")
   private long jwtExpiration;
 
+  /**
+   * Generates a signed JWT token for the authenticated user.
+   *
+   * @param authentication the authenticated principal from Spring Security
+   * @return a compact, URL-safe JWT string signed with HS256
+   */
   public String generateJwtToken(Authentication authentication){
       UserDetailsImpl userPrincipal = (UserDetailsImpl) authentication.getPrincipal();
 
@@ -39,11 +45,24 @@ public class JwtUtils {
       return Keys.hmacShaKeyFor(Decoders.BASE64.decode(jwtSecret));
   }
 
+  /**
+   * Extracts the username (subject claim) from a JWT token.
+   *
+   * @param token the JWT string to parse
+   * @return the username stored in the token's subject claim
+   */
   public String getUserNameFromJwtToken(String token){
       return Jwts.parserBuilder().setSigningKey(key()).build()
               .parseClaimsJws(token).getBody().getSubject();
   }
 
+  /**
+   * Validates a JWT token by verifying its signature and structure.
+   * Logs a descriptive error if validation fails.
+   *
+   * @param authToken the JWT string to validate
+   * @return {@code true} if the token is valid, {@code false} otherwise
+   */
   public boolean validateJwtToken(String authToken){
       try{
           Jwts.parserBuilder().setSigningKey(key()).build().parseClaimsJws(authToken);

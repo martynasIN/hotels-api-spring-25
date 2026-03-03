@@ -46,6 +46,12 @@ public class AuthController {
     @Autowired
     JwtUtils jwtUtils;
 
+    /**
+     * Authenticates a user and returns a JWT token.
+     *
+     * @param loginRequest validated request body containing username and password
+     * @return 200 with a {@link com.hotel.is.dto.JwtResponse} containing the Bearer token and user details
+     */
     @PostMapping("signin")
     public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest){
         Authentication authentication = authenticationManager.authenticate(
@@ -71,6 +77,13 @@ public class AuthController {
                         ));
     }
 
+    /**
+     * Registers a new user account.
+     * Defaults to {@code ROLE_USER} if no role is specified in the request.
+     *
+     * @param signupRequest validated request body containing username, email, password, and optional roles
+     * @return 200 on success, or 400 if the username or email is already taken
+     */
     @PostMapping("/signup")
     public ResponseEntity<?> registerUser(@Valid @RequestBody SignupRequest signupRequest){
         if(userRepository.existsByUserName(signupRequest.getUserName())){

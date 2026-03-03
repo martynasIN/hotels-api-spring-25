@@ -18,11 +18,13 @@ public class HotelsServiceImpl implements HotelService{
         this.hotelRepository = hotelRepository;
     }
 
+    /** {@inheritDoc} */
     @Override
     public List<Hotel> findAll(){
         return hotelRepository.findAll();
     }
 
+    /** {@inheritDoc} */
     @Override
     public Hotel findById(long id){
         Optional<Hotel> result = hotelRepository.findById(id);
@@ -38,11 +40,13 @@ public class HotelsServiceImpl implements HotelService{
         return hotel;
     }
 
+    /** {@inheritDoc} */
     @Override
     public Hotel save(Hotel hotel){
         return hotelRepository.save(hotel);
     }
 
+    /** {@inheritDoc} */
     @Override
     public void deleteById(long id){
         hotelRepository.deleteById(id);

@@ -33,6 +33,11 @@ public class HotelController {
         this.objectMapper = objectMapper;
     }
 
+    /**
+     * Retrieves all hotels. Requires {@code ROLE_USER}.
+     *
+     * @return 200 with a JSON envelope containing status, result count, and hotel list
+     */
     @GetMapping
     @PreAuthorize("hasRole('USER')")
     public ResponseEntity<Map<String, Object>> findAll(){
@@ -48,6 +53,12 @@ public class HotelController {
         return ResponseEntity.ok(response);
     }
 
+    /**
+     * Retrieves a single hotel by ID.
+     *
+     * @param hotelId the hotel ID from the path
+     * @return 200 with the hotel, or 404 if not found
+     */
     @GetMapping("/{hotelId}")
     public ResponseEntity<HotelResponseDTO> getHotel(@PathVariable long hotelId){
         Hotel hotel = hotelService.findById(hotelId);
@@ -58,12 +69,26 @@ public class HotelController {
         return ResponseEntity.ok(HotelMapper.toResponse(hotel));
     }
 
+    /**
+     * Creates a new hotel. Requires {@code ROLE_ADMIN}.
+     *
+     * @param hotelDTO validated request body with hotel details
+     * @return 200 with the created hotel
+     */
     @PostMapping
     public ResponseEntity<HotelResponseDTO> addHotel(@Valid @RequestBody HotelCreateDTO hotelDTO){
         Hotel saved = hotelService.save(HotelMapper.toEntity(hotelDTO));
         return ResponseEntity.ok(HotelMapper.toResponse(saved));
     }
 
+    /**
+     * Partially updates a hotel. Requires {@code ROLE_ADMIN}.
+     * The {@code id} field is protected and cannot be patched.
+     *
+     * @param hotelId   the hotel ID from the path
+     * @param patchData map of fields to update
+     * @return 200 with the updated hotel, 400 if {@code id} is in the payload, or 404 if not found
+     */
     @PatchMapping("/{hotelId}")
     public ResponseEntity<HotelResponseDTO> patchHotel(@PathVariable long hotelId,
                                                        @RequestBody Map<String, Object> patchData){
@@ -90,6 +115,12 @@ public class HotelController {
         return ResponseEntity.ok(HotelMapper.toResponse(saved));
     }
 
+    /**
+     * Deletes a hotel by ID. Requires {@code ROLE_ADMIN}.
+     *
+     * @param hotelId the hotel ID from the path
+     * @return 200 with a confirmation message, or 404 if not found
+     */
     @DeleteMapping("/{hotelId}")
     public ResponseEntity<String> deleteHotel(@PathVariable long hotelId){
         Hotel tempHotel = hotelService.findById(hotelId);
